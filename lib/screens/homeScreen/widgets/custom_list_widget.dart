@@ -15,8 +15,9 @@ String getInitials(data) {
   return name;
 }
 
-Widget customListWidget({required UserModel data, query}) {
-  // final nameIndex = data.name.toLowerCase().indexOf(query.toLowerCase());
+Widget customListWidget({required TextEditingController searchController,required UserModel data,required String query}) {
+
+  final nameIndex = data.name.toLowerCase().indexOf(query.toLowerCase());
   return Container(
     padding: const EdgeInsets.all(containerSmallPadding),
     margin: const EdgeInsets.only(top: verticalMargin),
@@ -60,34 +61,34 @@ Widget customListWidget({required UserModel data, query}) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // RichText(
-              //   text: TextSpan(
-              //     text: data.name.substring(0, nameIndex),
-              //     style: const TextStyle(
-              //         fontSize: mediumText,
-              //         color: black,
-              //         fontWeight: FontWeight.w700),
-              //     children: [
-              //       TextSpan(
-              //         text: data.name
-              //             .substring(nameIndex, nameIndex + query.length),
-              //         style: const TextStyle(
-              //             color: Colors.blue, fontWeight: FontWeight.bold),
-              //       ),
-              //       TextSpan(
-              //         text: data.name.substring(nameIndex + query.length),
-              //         style: const TextStyle(color: Colors.black),
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              Text(
-                data.name,
-                style: const TextStyle(
-                    fontSize: smallText,
-                    color: black,
-                    fontWeight: FontWeight.w400),
+              RichText(
+                text: TextSpan(
+                  text: data.name.substring(0, nameIndex),
+                  style: const TextStyle(
+                      fontSize: mediumText,
+                      color: black,
+                      fontWeight: FontWeight.w700),
+                  children: [
+                    TextSpan(
+                      text: data.name
+                          .substring(nameIndex, nameIndex + query.length),
+                      style: const TextStyle(
+                          color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(
+                      text: data.name.substring(nameIndex + query.length),
+                      style: const TextStyle(color: Colors.black),
+                    ),
+                  ],
+                ),
               ),
+              // Text(
+              //   data.name,
+              //   style: const TextStyle(
+              //       fontSize: smallText,
+              //       color: black,
+              //       fontWeight: FontWeight.w400),
+              // ),
               Text(
                 data.email,
                 style: const TextStyle(
