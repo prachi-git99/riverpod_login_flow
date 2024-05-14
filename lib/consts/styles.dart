@@ -17,3 +17,8 @@ const extraLargeText = 22.0;
 //border radius
 const smallBorderRadius = 8.0;
 const mediumBorderRadius = 12.0;
+
+//drwaer
+const drawerCircleRadius = 20.0;
+
+
