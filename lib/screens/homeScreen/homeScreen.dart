@@ -48,42 +48,45 @@ class _HomePageState extends ConsumerState<HomePage> {
         body: Container(
           padding: const EdgeInsets.symmetric(
               horizontal: appHorizontalPadding, vertical: appVerticalPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                homeScreenTitle,
-                style: TextStyle(
-                    fontSize: largeText,
-                    color: black,
-                    fontWeight: FontWeight.w700),
-              ),
-              dataState.when(
-                  data: (data) {
-                    String query = searchController.text;
-                    List<UserModel> searchResults = [];
-                    searchResults = data
-                        .where((item) => item.name
-                            .toLowerCase()
-                            .contains(query.toLowerCase()))
-                        .toList();
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  homeScreenTitle,
+                  style: TextStyle(
+                      fontSize: largeText,
+                      color: black,
+                      fontWeight: FontWeight.w700),
+                ),
+                dataState.when(
+                    data: (data) {
+                      String query = searchController.text;
+                      List<UserModel> searchResults = [];
+                      searchResults = data
+                          .where((item) => item.name
+                              .toLowerCase()
+                              .contains(query.toLowerCase()))
+                          .toList();
 
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        physics: const ScrollPhysics(),
-                        itemCount: searchResults.length != [] ? searchResults.length:data.length,
-                        itemBuilder: (context, index) {
-                          return customListWidget(
-                              searchController: searchController,
-                              data: searchResults == []?data[index]:searchResults[index],
-                              query: query);
-                        });
-                  },
-                  error: (error, _) => Center(child: Text('Error: $error')),
-                  loading: () =>
-                      const Center(child: CircularProgressIndicator())),
-            ],
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          physics: const ScrollPhysics(),
+                          itemCount: searchResults.length != [] ? searchResults.length:data.length,
+                          itemBuilder: (context, index) {
+                            return customListWidget(
+                                searchController: searchController,
+                                data: searchResults == []?data[index]:searchResults[index],
+                                query: query);
+                          });
+                    },
+                    error: (error, _) => Center(child: Text('Error: $error')),
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator())),
+              ],
+            ),
           ),
         ));
   }
